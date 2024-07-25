@@ -2,6 +2,7 @@ def hamming_encode(data)
   n = data.length
   r = 0
 
+  # Determinar el número de bits de paridad necesarios
   while (2**r - 1) < (n + r)
     r += 1
   end
@@ -11,7 +12,8 @@ def hamming_encode(data)
 
   j = 0
   for i in 0...total_bits
-    if (i & (i + 1)) == 0
+    if (i + 1 & i) == 0
+      # Posiciones de paridad
       encoded[i] = 0
     else
       encoded[i] = data[j].to_i
@@ -19,17 +21,14 @@ def hamming_encode(data)
     end
   end
 
+  # Calcular bits de paridad
   for i in 0...r
     parity_pos = 2**i - 1
     parity = 0
-    j = parity_pos
-    while j < total_bits
-      for k in 0..parity_pos
-        if j + k < total_bits
-          parity ^= encoded[j + k]
-        end
+    for j in parity_pos...total_bits
+      if (j & (parity_pos + 1)) != 0
+        parity ^= encoded[j]
       end
-      j += 2 * (parity_pos + 1)
     end
     encoded[parity_pos] = parity
   end
