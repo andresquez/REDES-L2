@@ -32,8 +32,14 @@ def hamming_decode(encoded):
         decoded_message = encoded
 
     # Eliminar bits de paridad
-    decoded_message = ''.join([decoded_message[i] for i in range(n) if not (i & (i + 1) == 0)])
-    return decoded_message
+    data_bits = []
+    for i in range(n):
+        if not (i + 1 & i == 0):
+            data_bits.append(decoded_message[i])
+    return ''.join(data_bits)
+
+def from_ascii_binary(binary_message):
+    return ''.join([chr(int(binary_message[i:i+8], 2)) for i in range(0, len(binary_message), 8)])
 
 # Configuración del socket
 HOST = '127.0.0.1'
@@ -42,9 +48,15 @@ PORT = 65432
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print(f"Conexión desde {addr}")
-        encoded_message = conn.recv(1024).decode()
-        decoded_message = hamming_decode(encoded_message)
-        print(f"Mensaje decodificado: {decoded_message}")
+    print(f"Escuchando en el puerto {PORT} para Hamming...")
+    
+    while True:
+        conn, addr = s.accept()
+        with conn:
+            print(f"Conexión desde {addr}")
+            noisy_message = conn.recv(1024).decode()
+            print(f"Mensaje recibido: {noisy_message}")
+            decoded_message = hamming_decode(noisy_message)
+            original_message = from_ascii_binary(decoded_message)
+            print(f"Mensaje decodificado: {original_message}")
+
