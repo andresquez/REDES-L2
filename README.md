@@ -7,44 +7,50 @@ Laboratorio #2 - Redes
 
 ## Parte 1 del laboratorio
 
-```bash
-cd p1
-```
-
-## Parte 2 del laboratorio
-
-```bash
-cd p1
-```
+[Parte 1](p1/)
 
 ## Documentación
 
 Acá se encuentra el reporte en pdf
 
-```bash
-cd docs
-```
+[Documentación Parte 1](p1/docs/)
 
 ## Implementación de emisores
 
 Hecho en Ruby
 
-```bash
-cd emisores
-```
+[Emisores](p1/emisores/)
 
 ## Implementación de receptores
 
 Hecho en Python
 
-```bash
-cd receptores
-```
+[Receptores](p1/receptores/)
+
+## Parte 2 del laboratorio
+
+[Parte 2](p2/)
+
+## Documentación 2
+
+Acá se encuentra el reporte en pdf
+
+[Documentación Parte 2](p2/docs/)
+
+## Implementación de emisores 2
+
+Hecho en Ruby
+
+[Emisores](p2/emisores/)
+
+## Implementación de receptores 2
+
+Hecho en Python
+
+[Receptores](p2/receptores/)
 
 ## Testing
 
 Análisis y archivos csv
 
-```bash
-cd testing
-```
+[Testing](p2/testing/)
