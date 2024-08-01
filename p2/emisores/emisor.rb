@@ -32,8 +32,8 @@ def hamming_encode(data)
   for i in 0...r
     parity_pos = 2**i - 1
     parity = 0
-    for j in parity_pos...total_bits
-      if (j & (parity_pos + 1)) != 0
+    for j in 0...total_bits
+      if j & (parity_pos + 1) != 0
         parity ^= encoded[j]
       end
     end
@@ -42,6 +42,7 @@ def hamming_encode(data)
 
   encoded.join
 end
+
 
 def fletcher16(data)
   sum1 = 0
@@ -75,20 +76,16 @@ loop do
   algorithm = gets.chomp.to_i
 
   binary_message = to_ascii_binary(message)
-  puts "Mensaje en binario ASCII: #{binary_message}"
 
   case algorithm
   when 1
     encoded_message = hamming_encode(binary_message)
-    puts "Mensaje codificado con Hamming: #{encoded_message}"
     message_with_checksum = encoded_message
     port = 65432
   when 2
     checksum = fletcher16(binary_message)
-    puts "Checksum de Fletcher-16: #{checksum}"
     encoded_message = binary_message
     message_with_checksum = encoded_message + checksum
-    puts "Mensaje con checksum de Fletcher-16: #{message_with_checksum}"
     port = 65433
   else
     puts "Opción no válida."
@@ -107,6 +104,6 @@ loop do
 
   puts "Mensaje codificado y con ruido enviado a través del puerto #{port}: #{noisy_message}"
 
-  puts "¿Desea enviar otro mensaje? (s/n)"
+  puts "\n¿Desea enviar otro mensaje? (s/n)"
   break if gets.chomp.downcase != 's'
 end

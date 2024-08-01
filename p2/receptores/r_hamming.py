@@ -34,7 +34,7 @@ def hamming_decode(encoded):
     # Eliminar bits de paridad
     data_bits = []
     for i in range(n):
-        if not (i + 1 & i == 0):
+        if (i + 1) & i != 0:
             data_bits.append(decoded_message[i])
     return ''.join(data_bits)
 
@@ -58,5 +58,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print(f"Mensaje recibido: {noisy_message}")
             decoded_message = hamming_decode(noisy_message)
             original_message = from_ascii_binary(decoded_message)
-            print(f"Mensaje decodificado: {original_message}")
-
+            print(f"Mensaje decodificado: {original_message}\n")

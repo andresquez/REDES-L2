@@ -35,8 +35,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         with conn:
             print(f"Conexión desde {addr}")
             message_with_checksum = conn.recv(1024).decode()
+            print("Mensaje recibido:", message_with_checksum)
             if validate_fletcher16(message_with_checksum):
                 original_message = message_with_checksum[:-16]
-                print(f"No se detectaron errores. Mensaje original: {from_ascii_binary(original_message)}")
+                print(f"No se detectaron errores. Mensaje original: {from_ascii_binary(original_message)}\n")
             else:
-                print("Se detectaron errores y el mensaje se descarta.")
+                print("Se detectaron errores y el mensaje se descarta.\n")
